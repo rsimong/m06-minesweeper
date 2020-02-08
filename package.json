@@ -4,7 +4,9 @@
   "description": "Create a minesweeper game, to play a single player.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "serve": "webpack-dev-server --mode development --open"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,17 @@
   "bugs": {
     "url": "https://github.com/rsimong/m06-minesweeper/issues"
   },
-  "homepage": "https://github.com/rsimong/m06-minesweeper#readme"
+  "homepage": "https://github.com/rsimong/m06-minesweeper#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.8.0",
+    "eslint-loader": "^3.0.3",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "style-loader": "^1.1.3",
+    "webpack": "^4.41.5"
+  }
 }
