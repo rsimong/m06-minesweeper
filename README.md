@@ -21,7 +21,7 @@ Si no se obtiene un mínimo de un 4 sobre 10 en esta entrega, no se podrá hacer
 Crea un juego de buscaminas, para jugar un solo jugador. Para ello sigue las siguientes instrucciones:
 
 -	Crea un botón para iniciar el juego y con un input numérico donde el usuario indicará cuantas minas existirán.
-  - (`+0,5p`) Este input será validado con expresión regular con JS.  
+- -  (`+0,5p`) Este input será validado con expresión regular con JS.  
 - Cuando se clique al botón de inicio se deberá:
   - (`+0,25p`) Crear el tablero 9x9, para mostrar al usuario.
   - (`+0,25p`) Crear un array multidimensional 9x9, para guardar el contenido de cada casilla.
