@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     entry: ['babel-polyfill', './src/js/index.js'],
@@ -17,10 +16,6 @@ module.exports = {
             filename: 'index.html',
             template: './src/index.html'
         }),
-        // new BundleAnalyzerPlugin({
-        //     analyzerMode: 'static', //para que lo haga sólo al momento de hacer el build
-        //     openAnalyzer: true, //para que nos muestre el resultado inmediatamente
-        // }),
         new MiniCssExtractPlugin()
     ],
     module: {
