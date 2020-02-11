@@ -7,14 +7,56 @@
     <title>Minesweeper Game</title>
 
     <!-- Import Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
 
     <!-- Import FontAwesome -->
     <script src="https://kit.fontawesome.com/2ac97521ee.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div id="game-board"></div>
+    <div id="game-welcome">
+        <div class="container">
+            <div class="section--new-game">
+                <div class="section--new-game--header">
+                    <h1>Minesweeper</h1>
+                </div>
+                <div class="section--new-game--content">
+                    <p>Choose the level of the game. With what level do you dare?</p>
+                    <form autocomplete="off">
+                        <div class="levels">
+                            <label>
+                                <input type="radio" name="level" value="easy">
+                                <i class="fas fa-grin-beam-sweat"></i>
+                                <span>Easy</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="level" value="normal">
+                                <i class="fas fa-sad-cry"></i>
+                                <span>Normal</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="level" value="hard">
+                                <i class="fas fa-dizzy"></i>
+                                <span>Hard</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="level" value="custom">
+                                <i class="fas fa-kiss-beam"></i>
+                                <span>Custom</span>
+                            </label>
+                        </div>
+                        <div class="custom-level is-hidden">
+                            <label>
+                                <span>How many bombs do you need to make the game interesting for you?</span>
+                                <input type="text" name="custom-level" placeholder="" autocomplete="off" />
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="game-board" class="is-hidden"></div>
 </body>
 
 </html>

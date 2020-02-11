@@ -1,8 +1,11 @@
 import '../css/reset.css';
 import '../css/minesweeper.css';
 
+const welcomeScreen = document.getElementById('game-welcome');
+const customLevelField = welcomeScreen.getElementsByClassName('custom-level')[0];
+
+const gameScreen = document.getElementById('game-board');
 let board;
-let parentBoard;
 let actionsBoard;
 let gridsNumbers;
 let chosenDifficulty;
@@ -21,11 +24,36 @@ let timer;
 let gameTime = 0;
 let vGameOver = false;
 
-initGame('#game-board', 12);
+const gameMenu = document.querySelector('#game-welcome>.container>.section--new-game>.section--new-game--content>form');
+const levelOptions = gameMenu.querySelectorAll('.levels>label>input');
 
-function initGame(elemnt, grids, difficulty = 'normal') {
-    parentBoard = document.querySelector(elemnt);
-    parentBoard.innerHTML = `<div class="g-actions">
+[...levelOptions].slice(0, (levelOptions.length - 1)).forEach((lvl) => {
+    lvl.addEventListener('click', () => {
+        initGame(9, lvl.value);
+        welcomeScreen.classList.add('is-hidden');
+        gameScreen.classList.remove('is-hidden');
+    }, false);
+});
+
+levelOptions[(levelOptions.length - 1)].addEventListener('click', () => {
+    customLevelField.classList.remove('is-hidden');
+    const input = customLevelField.querySelector('input');
+    input.focus();
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const iValue = e.target.value;
+            if (/\d+/.test(iValue)) {
+                initGame(9, parseFloat(iValue));
+                welcomeScreen.classList.add('is-hidden');
+                gameScreen.classList.remove('is-hidden');
+            }
+        }
+    }, false);
+}, false);
+
+function initGame(grids, difficulty = 'normal') {
+    gameScreen.innerHTML = `<div class="g-actions">
                             <div class="g-actions--timer">
                                 <i class="far fa-clock"></i>
                                 <span>00:00</span>
@@ -36,8 +64,8 @@ function initGame(elemnt, grids, difficulty = 'normal') {
                             </div>
                         </div>
                         <div class="g-board"></div>`;
-    board = parentBoard.querySelector('.g-board');
-    actionsBoard = parentBoard.querySelector('.g-actions');
+    board = gameScreen.querySelector('.g-board');
+    actionsBoard = gameScreen.querySelector('.g-actions');
     timer = actionsBoard.querySelector('.g-actions--timer>span');
     bombsCounter = actionsBoard.querySelector('.g-actions--bombs-counter>span');
     gridsNumbers = grids;
