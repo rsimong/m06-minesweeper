@@ -1,6 +1,8 @@
 # M06-UF3 Minesweeper
 https://gracia.sallenet.org/mod/assign/view.php?id=123234
 
+![Image of Minesweeper](https://repository-images.githubusercontent.com/239135383/08c87780-4d1c-11ea-8e09-22b86df633e6)
+
 ## Guía para el alumno
 El alumno debe de entregar la práctica enunciada en este documento antes del cierre programado en el calendario.
 
