@@ -3,7 +3,7 @@ body {
 }
 
 .is-hidden {
-    display: none;
+    display: none !important;
 }
 
 #game-welcome {
@@ -12,13 +12,18 @@ body {
     top: 0;
     left: 0;
     padding: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     position: absolute;
 }
 
 #game-welcome>.container {
     width: 600px;
+    height: calc(390px + 70px + 273px);
+    max-height: 100%;
     margin: 0 auto;
-    display: block;
 }
 
 #game-welcome>.container>.section--new-game,
@@ -152,7 +157,7 @@ body {
 #game-welcome>.container>.section--new-game>.section--new-game--content>form>.custom-level>label>span {
     width: 85%;
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 20px;
     color: white;
     line-height: 1.4;
 }
@@ -166,6 +171,149 @@ body {
     text-align: center;
     background-color: #494082;
 }
+
+#game-welcome>.container>.section--history-results,
+#game-welcome>.container>.section--history-results>div,
+#game-welcome>.container>.section--history-results>div>h2 {
+    width: 100%;
+}
+
+#game-welcome>.container>.section--history-results {
+    margin-top: 70px;
+    margin-bottom: 30px;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--header>h2 {
+    margin-bottom: 5px;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--header>p {
+    color: rgb(180, 169, 255);
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content {
+    height: 305px;
+    margin-top: 30px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list {
+    width: 100%;
+    min-height: 305px;
+    /* background-color: rgba(0, 0, 0, 0.1); */
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list,
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item {
+    width: 100%;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item {
+    padding: 15px 25px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item>div>* {
+    font-size: 18px;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item>div>*:not(:last-child) {
+    margin-right: 10px;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item>.hl--item--pos {
+    width: 48px;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item>.hl--item--username {
+    width: calc(100% - (48px + 120px + 120px));
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item>.hl--item--bombs,
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--list>.history-list>.hl--item>.hl--item--time {
+    width: 120px;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: -1;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    opacity: 0.9;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>div {
+    width: 128px;
+    margin: 0 -10px;
+    border-radius: 4px 4px 0 0;
+    background-image: linear-gradient(180deg, #494082, transparent);
+    overflow: hidden;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>div::before {
+    content: '';
+    width: 100%;
+    display: inline-block;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-1::before {
+    padding-top: 100%;
+    background-image: linear-gradient(180deg, #494082 60%, transparent);
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-2::before {
+    padding-top: 70%;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-3::before {
+    padding-top: 40%;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-1 {
+    z-index: 3;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-1>i {
+    top: 30%;
+    left: 50%;
+    font-size: 32px;
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-2 {
+    z-index: 2;
+    opacity: 0.7;
+}
+
+#game-welcome>.container>.section--history-results>.section--history-results--content>.section--history-results--bg>.podium-box>.podium-3 {
+    z-index: 1;
+    opacity: 0.4;
+}
+
 
 #game-board {
     width: auto;

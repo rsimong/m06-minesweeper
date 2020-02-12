@@ -27,30 +27,158 @@ let vGameOver = false;
 const gameMenu = document.querySelector('#game-welcome>.container>.section--new-game>.section--new-game--content>form');
 const levelOptions = gameMenu.querySelectorAll('.levels>label>input');
 
-[...levelOptions].slice(0, (levelOptions.length - 1)).forEach((lvl) => {
-    lvl.addEventListener('click', () => {
-        initGame(9, lvl.value);
-        welcomeScreen.classList.add('is-hidden');
-        gameScreen.classList.remove('is-hidden');
-    }, false);
-});
+const gameHistory = document.querySelector('#game-welcome>.container>.section--history-results');
+localStorage.setItem('gm-history', JSON.stringify([
+    {
+        username: 'anonymous #1',
+        numBombs: 32,
+        time: 64,
+    },
+    {
+        username: 'anonymous #2',
+        numBombs: 32,
+        time: 64,
+    },
+    {
+        username: 'anonymous #3',
+        numBombs: 32,
+        time: 32,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+    {
+        username: 'anonymous #4',
+        numBombs: 32,
+        time: 360,
+    },
+]));
 
-levelOptions[(levelOptions.length - 1)].addEventListener('click', () => {
-    customLevelField.classList.remove('is-hidden');
-    const input = customLevelField.querySelector('input');
-    input.focus();
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            const iValue = e.target.value;
-            if (/\d+/.test(iValue)) {
-                initGame(9, parseFloat(iValue));
-                welcomeScreen.classList.add('is-hidden');
-                gameScreen.classList.remove('is-hidden');
-            }
+initApp();
+
+function initApp() {
+    [...levelOptions].slice(0, (levelOptions.length - 1)).forEach((lvl) => {
+        lvl.addEventListener('click', () => {
+            initGame(9, lvl.value);
+            welcomeScreen.classList.add('is-hidden');
+            gameScreen.classList.remove('is-hidden');
+        }, false);
+    });
+
+    levelOptions[(levelOptions.length - 1)].addEventListener('click', () => {
+        customLevelField.classList.remove('is-hidden');
+        if (!gameHistory.classList.contains('is-hidden')) {
+            gameHistory.classList.add('is-hidden');
         }
+        const input = customLevelField.querySelector('input');
+        input.focus();
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const iValue = e.target.value;
+                if (/\d+/.test(iValue)) {
+                    initGame(9, parseFloat(iValue));
+                    welcomeScreen.classList.add('is-hidden');
+                    gameScreen.classList.remove('is-hidden');
+                }
+            }
+        }, false);
     }, false);
-}, false);
+
+    renderHistory();
+}
+
+function checkIfExistHistoryStored() {
+    if (localStorage.getItem('gm-history')) {
+        const results = JSON.parse(localStorage.getItem('gm-history'));
+        if (typeof results === 'object') {
+            if (results.length === 0) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+    return true;
+}
+
+function renderHistory() {
+    if (checkIfExistHistoryStored()) {
+        if (gameHistory.classList.contains('is-hidden')) {
+            gameHistory.classList.remove('is-hidden');
+        }
+    } else {
+        if (!gameHistory.classList.contains('is-hidden')) {
+            gameHistory.classList.add('is-hidden');
+        }
+        return;
+    }
+
+    let html = '<ul class="history-list">';
+    JSON.parse(localStorage.getItem('gm-history')).forEach((log, index) => {
+        const minutes = Math.trunc(log.time / 60);
+        const seconds = log.time % 60;
+        const printTime = `${(minutes > 0) ? `${minutes}m` : ''} ${(seconds > 0) ? `${seconds}s` : '0s'}`.trim();
+        html += `<li class="hl--item">
+            <div class="hl--item--pos">
+                ${(index === 0) ? '<i class="fas fa-crown"></i>' : ''}
+                ${(index === 1 || index === 2) ? '<i class="fas fa-medal"></i>' : ''}
+            </div>
+            <div class="hl--item--username">
+                <span>${log.username}</span>
+            </div>
+            <div class="hl--item--bombs">
+                <i class="fas fa-bomb"></i>
+                <span>${log.numBombs}</span>
+            </div>
+            <div class="hl--item--time">
+                <i class="far fa-clock"></i>
+                <span>${printTime}</span>
+            </div>
+        </li>`;
+    });
+    html += '</ul>';
+    gameHistory.getElementsByClassName('section--history-results--list')[0].innerHTML = html;
+}
 
 function initGame(grids, difficulty = 'normal') {
     gameScreen.innerHTML = `<div class="g-actions">
