@@ -249,14 +249,16 @@ function calcNumOfBombs() {
 
 function generateBombs() {
     const numBombs = calcNumOfBombs();
-    let assignedBombs = 0;
-    while (assignedBombs < numBombs) {
-        const row = Math.floor(Math.random() * (gridsNumbers - 1));
-        const col = Math.floor(Math.random() * (gridsNumbers - 1));
-        if (virtualBoard[row][col] !== -1) {
-            virtualBoard[row][col] = -1;
-            assignedBombs++;
-        }
+    const availableGrids = [];
+    virtualBoard.forEach((row, rowIndex) => {
+        row.forEach((col, colIndex) => {
+            availableGrids.push([rowIndex, colIndex]);
+        });
+    });
+    for (let i = 0; i < numBombs; i++) {
+        const pos = Math.floor(Math.random() * (availableGrids.length - 1));
+        virtualBoard[availableGrids[pos][0]][availableGrids[pos][1]] = -1;
+        availableGrids.splice(pos, 1);
     }
     generateCounters();
 }
