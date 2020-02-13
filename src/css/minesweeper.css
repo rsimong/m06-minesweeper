@@ -456,6 +456,11 @@ body {
     border-color: #ff6969;
 }
 
+.g-board.game-over.is-winner>.row>.col.bomb-activated>.col-content {
+    color: #69ffc0;
+    border-color: #69ffc0;
+}
+
 .g-board>.row>.col>.col-content,
 .g-board>.row>.col>.col-content * {
     font-size: 21px;

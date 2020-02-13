@@ -398,16 +398,24 @@ function checkResult(row, col) {
 }
 
 function gameOver() {
-    if (uncoveredGrids === possibleGrids) {
-        console.log('You\'ve won!');
-    } else {
-        console.log('Game Over!');
+    if (!vGameOver) {
+        vGameOver = true;
+        if (!board.classList.contains('game-over')) {
+            board.classList.add('game-over');
+        }
+        if (uncoveredGrids === possibleGrids) {
+            if (!board.classList.contains('is-winner')) {
+                board.classList.add('is-winner');
+            }
+            console.log('You\'ve won!');
+        } else {
+            if (!board.classList.contains('is-loser')) {
+                board.classList.add('is-loser');
+            }
+            console.log('Game Over!');
+        }
+        showBoardDetails();
     }
-    showBoardDetails();
-    if (!board.classList.contains('game-over')) {
-        board.classList.add('game-over');
-    }
-    vGameOver = true;
 }
 
 function initTimer() {
