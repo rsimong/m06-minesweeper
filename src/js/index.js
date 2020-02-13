@@ -155,26 +155,28 @@ function renderHistory() {
 
     let html = '<ul class="history-list">';
     JSON.parse(localStorage.getItem('gm-history')).forEach((log, index) => {
-        const minutes = Math.trunc(log.time / 60);
-        const seconds = log.time % 60;
-        const printTime = `${(minutes > 0) ? `${minutes}m` : ''} ${(seconds > 0) ? `${seconds}s` : '0s'}`.trim();
-        html += `<li class="hl--item">
-            <div class="hl--item--pos">
-                ${(index === 0) ? '<i class="fas fa-crown"></i>' : ''}
-                ${(index === 1 || index === 2) ? '<i class="fas fa-medal"></i>' : ''}
-            </div>
-            <div class="hl--item--username">
-                <span>${log.username}</span>
-            </div>
-            <div class="hl--item--bombs">
-                <i class="fas fa-bomb"></i>
-                <span>${log.numBombs}</span>
-            </div>
-            <div class="hl--item--time">
-                <i class="far fa-clock"></i>
-                <span>${printTime}</span>
-            </div>
-        </li>`;
+        if (index < 5) {
+            const minutes = Math.trunc(log.time / 60);
+            const seconds = log.time % 60;
+            const printTime = `${(minutes > 0) ? `${minutes}m` : ''} ${(seconds > 0) ? `${seconds}s` : '0s'}`.trim();
+            html += `<li class="hl--item">
+                <div class="hl--item--pos">
+                    ${(index === 0) ? '<i class="fas fa-crown"></i>' : ''}
+                    ${(index === 1 || index === 2) ? '<i class="fas fa-medal"></i>' : ''}
+                </div>
+                <div class="hl--item--username">
+                    <span>${log.username}</span>
+                </div>
+                <div class="hl--item--bombs">
+                    <i class="fas fa-bomb"></i>
+                    <span>${log.numBombs}</span>
+                </div>
+                <div class="hl--item--time">
+                    <i class="far fa-clock"></i>
+                    <span>${printTime}</span>
+                </div>
+            </li>`;
+        }
     });
     html += '</ul>';
     gameHistory.getElementsByClassName('section--history-results--list')[0].innerHTML = html;
@@ -344,6 +346,8 @@ function showGridDetails(row, col) {
         board.querySelector(`.row:nth-child(${(row + 1)})>.col:nth-child(${(col + 1)})`).classList.add('bomb-activated');
     } else if (virtualBoard[row][col] > 0) {
         colValue = `<span>${virtualBoard[row][col]}</span>`;
+        uncoveredGrids++;
+    } else {
         uncoveredGrids++;
     }
     board.querySelector(`.row:nth-child(${(row + 1)})>.col:nth-child(${(col + 1)})>div`).innerHTML = colValue;
