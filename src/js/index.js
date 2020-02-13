@@ -239,7 +239,7 @@ function calcNumOfBombs() {
             numBombs = (difficultyLevels.normal / 100) * (gridsNumbers ** 2);
         }
     } else if (typeof chosenDifficulty === 'number') {
-        numBombs = (chosenDifficulty <= (gridsNumbers ** 2)) ? chosenDifficulty : (gridsNumbers ** 2);
+        numBombs = (chosenDifficulty < (gridsNumbers ** 2)) ? chosenDifficulty : (gridsNumbers ** 2) - 1;
     }
     numBombs = Math.round(numBombs);
     bombsCounter.innerHTML = numBombs;
