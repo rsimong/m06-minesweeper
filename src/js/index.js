@@ -388,29 +388,25 @@ function renderGameOverIcon(isWinner) {
 }
 
 function updateWinnerLogs() {
-    let logs;
+    let logs = [];
+    var d = new Date();
     if (localStorage.getItem('gm-history')) {
         logs = JSON.parse(localStorage.getItem('gm-history'));
-        logs.push({
-            username: `anonymous #${logs.length + 1}`,
-            numBombs: ((gridsNumbers ** 2) - possibleGrids),
-            time: gameTime,
-        });
-        logs.sort((a, b) => {
-            if (a.time > b.time) {
-                return 1;
-            }
-            if (a.time < b.time) {
-                return -1;
-            }
-            return 0;
-        });
-    } else {
-        logs = [{
-            username: 'anonymous #1',
-            numBombs: ((gridsNumbers ** 2) - possibleGrids),
-            time: gameTime,
-        }];
     }
+    logs.push({
+        username: `anonymous #${logs.length + 1}`,
+        numBombs: ((gridsNumbers ** 2) - possibleGrids),
+        time: gameTime,
+        date: `${d.toISOString()}`
+    });
+    logs.sort((a, b) => {
+        if (a.time > b.time) {
+            return 1;
+        }
+        if (a.time < b.time) {
+            return -1;
+        }
+        return 0;
+    });
     localStorage.setItem('gm-history', JSON.stringify(logs));
 }
