@@ -389,7 +389,7 @@ function renderGameOverIcon(isWinner) {
 
 function updateWinnerLogs() {
     let logs = [];
-    var d = new Date();
+    const d = new Date();
     if (localStorage.getItem('gm-history')) {
         logs = JSON.parse(localStorage.getItem('gm-history'));
     }
@@ -397,7 +397,7 @@ function updateWinnerLogs() {
         username: `anonymous #${logs.length + 1}`,
         numBombs: ((gridsNumbers ** 2) - possibleGrids),
         time: gameTime,
-        date: `${d.toISOString()}`
+        date: `${d.toISOString()}`,
     });
     logs.sort((a, b) => {
         if (a.time > b.time) {
