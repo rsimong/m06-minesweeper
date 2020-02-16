@@ -374,6 +374,90 @@ body {
     color: rgba(255, 255, 255, 0.3);
 }
 
+.g-actions>.g-actions--btn-restart {
+    width: auto;
+    max-width: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+
+    animation-name: game_over_btn;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes game_over_btn {
+    0% {
+        max-width: 0;
+        margin: 0;
+        border-width: 0;
+    }
+
+    100% {
+        max-width: 100px;
+        margin: 0 30px;
+    }
+}
+
+.g-actions>.g-actions--btn-restart::before {
+    content: '';
+    width: 52px;
+    height: 52px;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transform: translate(-50%, -50%);
+    box-sizing: content-box;
+    position: absolute;
+
+    animation-name: game_over_btn_before;
+    animation-delay: 1s;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes game_over_btn_before {
+    0% {
+        border-color: transparent;
+    }
+
+    100% {
+        border-color: #ffc83d;
+    }
+}
+
+.g-actions>.g-actions--btn-restart>i {
+    margin: 0;
+    font-size: 32px;
+    color: #ffc83d;
+
+    opacity: 0;
+
+    animation-name: game_over_icon;
+    animation-delay: 1.4s;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+}
+
+@keyframes game_over_icon {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
 .g-board {
     width: auto;
     display: inline-block;

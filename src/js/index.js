@@ -28,68 +28,6 @@ const gameMenu = document.querySelector('#game-welcome>.container>.section--new-
 const levelOptions = gameMenu.querySelectorAll('.levels>label>input');
 
 const gameHistory = document.querySelector('#game-welcome>.container>.section--history-results');
-localStorage.setItem('gm-history', JSON.stringify([
-    {
-        username: 'anonymous #1',
-        numBombs: 32,
-        time: 64,
-    },
-    {
-        username: 'anonymous #2',
-        numBombs: 32,
-        time: 64,
-    },
-    {
-        username: 'anonymous #3',
-        numBombs: 32,
-        time: 32,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-    {
-        username: 'anonymous #4',
-        numBombs: 32,
-        time: 360,
-    },
-]));
 
 initApp();
 
@@ -400,21 +338,25 @@ function checkResult(row, col) {
 function gameOver() {
     if (!vGameOver) {
         vGameOver = true;
+        let isWinner = false;
         if (!board.classList.contains('game-over')) {
             board.classList.add('game-over');
         }
         if (uncoveredGrids === possibleGrids) {
             if (!board.classList.contains('is-winner')) {
                 board.classList.add('is-winner');
+                isWinner = true;
+                updateWinnerLogs();
             }
-            console.log('You\'ve won!');
         } else {
             if (!board.classList.contains('is-loser')) {
                 board.classList.add('is-loser');
             }
-            console.log('Game Over!');
         }
         showBoardDetails();
+        setTimeout(() => {
+            renderGameOverIcon(isWinner);
+        }, 800);
     }
 }
 
@@ -430,4 +372,45 @@ function initTimer() {
             initTimer();
         }
     }, 1000);
+}
+
+function renderGameOverIcon(isWinner) {
+    let icon = '<i class="fas fa-frown-open"></i>';
+    if (isWinner) {
+        icon = '<i class="fas fa-grin-beam"></i>';
+    }
+    actionsBoard.querySelector('.g-actions--timer').insertAdjacentHTML('afterend', `
+        <div class="g-actions--btn-restart">${icon}</div>
+    `);
+    actionsBoard.querySelector('.g-actions--btn-restart').addEventListener('click', () => {
+        location.reload();
+    }, false);
+}
+
+function updateWinnerLogs() {
+    let logs;
+    if (localStorage.getItem('gm-history')) {
+        logs = JSON.parse(localStorage.getItem('gm-history'));
+        logs.push({
+            username: `anonymous #${logs.length + 1}`,
+            numBombs: ((gridsNumbers ** 2) - possibleGrids),
+            time: gameTime,
+        });
+        logs.sort((a, b) => {
+            if (a.time > b.time) {
+                return 1;
+            }
+            if (a.time < b.time) {
+                return -1;
+            }
+            return 0;
+        });
+    } else {
+        logs = [{
+            username: 'anonymous #1',
+            numBombs: ((gridsNumbers ** 2) - possibleGrids),
+            time: gameTime,
+        }];
+    }
+    localStorage.setItem('gm-history', JSON.stringify(logs));
 }
