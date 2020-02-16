@@ -235,7 +235,8 @@ function assignActions() {
     for (let row = 0; row < gridsNumbers; row++) {
         for (let col = 0; col < gridsNumbers; col++) {
             const grid = board.querySelector(`.row:nth-child(${(row + 1)})>.col:nth-child(${(col + 1)})`);
-            grid.addEventListener('click', () => {
+            grid.addEventListener('click', (e) => {
+                e.stopPropagation();
                 discoverGrid(grid, row, col);
             }, false);
             grid.addEventListener('contextmenu', (e) => {
